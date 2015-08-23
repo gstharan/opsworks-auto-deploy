@@ -5,10 +5,6 @@ package 'nginx' do
   action :install
 end
 
-
-root@nginx1:/etc/nginx/sites-available# ^C
-root@nginx1:/etc/nginx/sites-available# cat /opt/aws/opsworks/current/site-cookbooks/nginx/recipes/deploy.rb 
-
 template "/etc/nginx/sites-available/bellefit" do
 cookbook 'nginx'
 source 'bellefit.erb'

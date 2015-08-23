@@ -1,0 +1,9 @@
+upstream <%= node[:stage_upstream_cluster] %>{
+  sticky;
+<% @instance_value.each do |node| -%>
+<% @container_count.times do |container| -%>
+server <%= @layers_blue["instances"][node[0]]["public_dns_name"] %>:8<%= container %>;
+<% end -%>
+<% end -%>
+}
+
