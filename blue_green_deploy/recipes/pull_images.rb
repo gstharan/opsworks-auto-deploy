@@ -27,7 +27,6 @@ if node[:opsworks][:instance][:layers][0].to_s == "#{node[:submodules][:frontend
     user "root"
     cwd "#{node[:submodules][:frontend][:dir]}"
     code <<-EOH
-    echo "fe_bui" >> /root/test.txt
       docker build -t #{node[:submodules][:docker_image_name]} .
     EOH
   end

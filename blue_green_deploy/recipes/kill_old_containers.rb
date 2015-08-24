@@ -1,6 +1,6 @@
 if node[:opsworks][:instance][:layers][0].to_s == "#{node[:submodules][:frontend][:layers_old]}" ||  node[:opsworks][:instance][:layers][0].to_s == "#{node[:submodules][:backend][:layers_old]}"
 
-script "kill_all_containers" do  
+script "kill_all_containers" do
   interpreter "bash"
   user "root"
   code <<-EOH
