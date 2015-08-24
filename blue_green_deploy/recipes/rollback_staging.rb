@@ -1,5 +1,5 @@
 if node[:opsworks][:instance][:layers][0].to_s == "#{node[:submodules][:frontend][:layers]}"
-	template "/var/www/frontend/release/#{time}/start.sh" do
+	template "/var/www/frontend/current/start.sh" do
             source "start.erb"
             user "root"
             group "root"
@@ -22,6 +22,29 @@ node[:submodules][:frontend][:instance_count].times do |index|
     EOH
   end
 end
+
+else if node[:opsworks][:instance][:layers][0].to_s == "#{node[:submodules][:backend][:layers]}"
+then
+        template "/var/www/frontend/release/current/start.sh" do
+            source "start.erb"
+            user "root"
+            group "root"
+            mode 777
+            variables(
+              :json => node[:submodules][:backend][:stage_json],
+             )
+        end
+
+node[:submodules][:frontend][:instance_count].times do |index|
+  script "run_app_#{index}_container" do
+    interpreter "bash"
+    user "root"
+    code <<-EOH
+      docker restart app#{index}  
+    EOH
+  end
+end
+
 else
 Chef::Log.warn("Wrong layer selection")
 end
