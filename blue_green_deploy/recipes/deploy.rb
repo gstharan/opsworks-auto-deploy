@@ -132,8 +132,6 @@ s3 = AWS::S3.new
 obj = s3.buckets["#{node[:submodules][:backend][:bucket_name]}"].objects["#{node[:submodules][:backend][:file_name]}"]
 # Read content to variable
 file_content = obj.read
-# Log output (optional)
-Chef::Log.info(file_content)
 # Write content to file
 file "/var/www/backend/release/#{time}/#{node[:submodules][:backend][:file_name]}" do
   owner 'root'
