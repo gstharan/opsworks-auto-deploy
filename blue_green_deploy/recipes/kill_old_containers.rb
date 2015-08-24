@@ -9,6 +9,7 @@ script "kill_all_containers" do
 	then
 	echo "no continers to remove"
 	else
+        sleep 5m
         docker ps -aq | xargs -n 1 -t docker stop
 	docker ps -aq | xargs -n 1 -t docker rm
 	fi
